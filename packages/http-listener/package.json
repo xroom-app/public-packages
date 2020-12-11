@@ -1,0 +1,32 @@
+{
+    "name": "@xroom.app/http-listener",
+    "version": "1.0.0",
+    "description": "Wrapper over standard http listener",
+    "author": "awerlogus",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xroom-app/public-packages.git"
+    },
+    "bugs": {
+        "url": "https://github.com/xroom-app/public-packages/issues"
+    },
+    "homepage": "https://github.com/xroom-app/public-packages/packages/pkg-http-listener/#readme",
+    "keywords": [
+        "nodejs",
+        "http",
+        "listener",
+        "wrapper",
+        "xroom.app"
+    ],
+    "files": [
+        "index.js",
+        "index.d.ts"
+    ],
+    "devDependencies": {
+        "@types/node": "^14.14.12"
+    },
+    "dependencies": {
+        "@xroom.app/events": "^1.0.0"
+    }
+}

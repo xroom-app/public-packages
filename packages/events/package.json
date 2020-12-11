@@ -1,0 +1,29 @@
+{
+    "name": "@xroom.app/events",
+    "version": "1.0.0",
+    "description": "Wrapper over standard nodejs events",
+    "author": "awerlogus",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xroom-app/public-packages.git"
+    },
+    "bugs": {
+        "url": "https://github.com/xroom-app/public-packages/issues"
+    },
+    "homepage": "https://github.com/xroom-app/public-packages/packages/events/#readme",
+    "keywords": [
+        "nodejs",
+        "events",
+        "wrapper",
+        "xroom.app"
+    ],
+    "files": [
+        "index.js",
+        "index.d.ts"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/node": "^14.14.12"
+    }
+}
