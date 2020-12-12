@@ -14,6 +14,7 @@
     "lerna": "^3.22.1"
   },
   "scripts": {
-    "test": "npx jest"
+    "test": "npx jest",
+    "coverage": "npx jest --coverage && rm coverage -rf"
   }
 }
