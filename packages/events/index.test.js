@@ -34,13 +34,13 @@ describe('immediateTasks function', () => {
     /** @type {Array<number>} */
     const result = []
 
-    Promise.resolve(5).then(n => result.push(n))
+    Promise.resolve(0).then(n => result.push(n))
 
     expect(result).toMatchObject([])
 
     await immediateTasks()
 
-    expect(result).toMatchObject([5])
+    expect(result).toMatchObject([0])
   })
 })
 
