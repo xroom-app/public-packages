@@ -26,5 +26,8 @@
     "dependencies": {},
     "devDependencies": {
         "@types/node": "^11.13.4"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }
