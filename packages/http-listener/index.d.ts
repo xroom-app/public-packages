@@ -14,7 +14,7 @@ type TextRequestData = { type: 'text', data: string, request: Request, response:
 type QueryRequestData = { type: 'query', data: import('querystring').ParsedUrlQuery, request: Request, response: Response }
 
 /** Event will be fired when any http request will be received */
-type RequestReceivedEvent = import('@xroom-app/pkg-events').Event<JsonRequestData | TextRequestData | QueryRequestData>
+type RequestReceivedEvent = import('@xroom.app/events').Event<JsonRequestData | TextRequestData | QueryRequestData>
 
 /**
  * RequestListener instance
@@ -24,7 +24,7 @@ type RequestReceivedEvent = import('@xroom-app/pkg-events').Event<JsonRequestDat
  */
 type RequestListener = {
   listen: (port: number) => import('http').Server
-  eventSystem: import('@xroom-app/pkg-events').EventSystem
+  eventSystem: import('@xroom.app/events').EventSystem
   events: { requestReceived: RequestReceivedEvent }
 }
 

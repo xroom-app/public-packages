@@ -1,0 +1,30 @@
+{
+    "name": "@xroom.app/process-limiter",
+    "version": "1.0.0",
+    "description": "Simple node process limiter",
+    "author": "awerlogus",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xroom-app/public-packages.git"
+    },
+    "bugs": {
+        "url": "https://github.com/xroom-app/public-packages/issues"
+    },
+    "homepage": "https://github.com/xroom-app/public-packages/packages/process-limiter/#readme",
+    "keywords": [
+        "simple",
+        "nodejs",
+        "process",
+        "limiter",
+        "xroom.app"
+    ],
+    "files": [
+        "index.js",
+        "index.d.ts"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/node": "^11.13.4"
+    }
+}
