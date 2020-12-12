@@ -106,7 +106,7 @@ function createEventSystem (initEvents) {
       throw new Error('Could not add listener: event is not registered')
     }
 
-    emitter.on(event.id, (data) => setImmediate(() => listener(data)))
+    emitter.on(event.id, data => setImmediate(() => listener(data)))
   }
 
   /**
@@ -122,7 +122,7 @@ function createEventSystem (initEvents) {
       throw new Error('Could not add listener: event is not registered')
     }
 
-    emitter.once(event.id, (data) => setImmediate(() => listener(data)))
+    emitter.once(event.id, data => setImmediate(() => listener(data)))
   }
 
   /**

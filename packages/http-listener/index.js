@@ -39,7 +39,7 @@ function getRequestListener () {
     eventSystem = createEventSystem(Object.values(events)),
     responseHandler = getRequestHandler(events, eventSystem)
 
-  return { listen: (port) => createServer(responseHandler).listen(port), eventSystem, events }
+  return { listen: port => createServer(responseHandler).listen(port), eventSystem, events }
 }
 
 // SECTION Util
@@ -68,7 +68,7 @@ function getRequestHandler (events, eventSystem) {
     /** @type {Array<string>} */
     const chunks = []
 
-    req.on('data', (chunk) => {
+    req.on('data', chunk => {
       chunks.push(chunk)
     })
 
