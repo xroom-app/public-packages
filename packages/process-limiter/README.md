@@ -3,6 +3,7 @@
 ## Installation
 
 Run from command line
+
 ```
 npm i @xroom.app/process-limiter
 ```
