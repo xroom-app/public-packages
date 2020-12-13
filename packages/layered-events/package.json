@@ -1,0 +1,33 @@
+{
+    "name": "@xroom.app/layered-events",
+    "version": "1.0.0",
+    "description": "Event system with layers",
+    "author": "awerlogus",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xroom-app/public-packages.git"
+    },
+    "bugs": {
+        "url": "https://github.com/xroom-app/public-packages/issues"
+    },
+    "homepage": "https://github.com/xroom-app/public-packages/packages/layered-events/#readme",
+    "keywords": [
+        "nodejs",
+        "layered",
+        "layer",
+        "events",
+        "xroom.app"
+    ],
+    "files": [
+        "index.js",
+        "index.d.ts"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/node": "^14.14.13"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
