@@ -23,7 +23,7 @@
         "index.d.ts"
     ],
     "devDependencies": {
-        "@types/node": "^14.14.12"
+        "@types/node": "^14.14.13"
     },
     "publishConfig": {
         "access": "public"

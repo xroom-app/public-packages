@@ -16,6 +16,6 @@
   "scripts": {
     "test": "npx jest",
     "coverage": "npx jest --coverage && rm coverage -rf",
-    "lerna-publish": "lerna publish from-package --git-tag-version"
+    "lerna-publish": "lerna publish from-package"
   }
 }

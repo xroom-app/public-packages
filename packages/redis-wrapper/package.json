@@ -27,7 +27,7 @@
         "redis": "^3.0.2"
     },
     "devDependencies": {
-        "@types/redis": "^2.8.25"
+        "@types/redis": "^2.8.28"
     },
     "publishConfig": {
         "access": "public"

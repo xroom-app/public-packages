@@ -1,7 +1,7 @@
 {
-    "name": "@xroom.app/process-limiter",
+    "name": "@xroom.app/reconnecting-socket",
     "version": "1.0.0",
-    "description": "Simple node process limiter",
+    "description": "Wrapper reconnects ws socket after break",
     "author": "awerlogus",
     "license": "MIT",
     "repository": {
@@ -11,20 +11,26 @@
     "bugs": {
         "url": "https://github.com/xroom-app/public-packages/issues"
     },
-    "homepage": "https://github.com/xroom-app/public-packages/packages/process-limiter/#readme",
+    "homepage": "https://github.com/xroom-app/public-packages/packages/reconnecting-socket/#readme",
     "keywords": [
-        "simple",
         "nodejs",
-        "process",
-        "limiter",
+        "websocket",
+        "socket",
+        "ws",
+        "wrapper",
+        "reconnect",
         "xroom.app"
     ],
     "files": [
         "index.js",
         "index.d.ts"
     ],
+    "dependencies": {
+        "ws": "^7.4.1"
+    },
     "devDependencies": {
-        "@types/node": "^14.14.13"
+        "@types/node": "^14.14.13",
+        "@types/ws": "^7.4.0"
     },
     "publishConfig": {
         "access": "public"
