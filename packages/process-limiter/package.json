@@ -23,7 +23,6 @@
         "index.js",
         "index.d.ts"
     ],
-    "dependencies": {},
     "devDependencies": {
         "@types/node": "^11.13.4"
     },
