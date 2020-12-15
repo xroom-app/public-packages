@@ -42,8 +42,8 @@ const mapLeft = (either, func) => isLeft(either) ? left(func(either.data)) : eit
 const chain = (either, func) => isLeft(either) ? either : func(either.data)
 
 /** @type {<E, T>(either: Either<E, T>) => T} */
-const unpackUnsafe = either => { if (isLeft(either)) { throw either.data } return either.data }
+const extractUnsafe = either => { if (isLeft(either)) { throw either.data } return either.data }
 
 // SECTION Exports
 
-module.exports = { left, right, isLeft, isRight, map, mapLeft, chain, unpackUnsafe }
+module.exports = { left, right, isLeft, isRight, map, mapLeft, chain, extractUnsafe }

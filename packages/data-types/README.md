@@ -24,5 +24,5 @@ const unsafeData = Math.round(Math.random())
 const result = E.map(checkNotZero(unsafeData), add(10))
 
 // Will log the message if unsafeData = 1 or throw an error if unsafeData = 0
-console.log(`unsafeData + 10 = ${E.unpackUnsafe(result)}`)
+console.log(`unsafeData + 10 = ${E.extractUnsafe(result)}`)
 ```

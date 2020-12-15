@@ -92,12 +92,12 @@ describe('chain function', () => {
   })
 })
 
-describe('unpackUnsafe function', () => {
+describe('extractUnsafe function', () => {
   it('should throw exception if Left passed', () => {
-    expect(() => E.unpackUnsafe(E.left('error'))).toThrow('error')
+    expect(() => E.extractUnsafe(E.left('error'))).toThrow('error')
   })
 
   it('should return value if Right passed', () => {
-    expect(E.unpackUnsafe(E.right(0))).toBe(0)
+    expect(E.extractUnsafe(E.right(0))).toBe(0)
   })
 })

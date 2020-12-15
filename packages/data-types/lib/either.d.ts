@@ -35,4 +35,4 @@ export const mapLeft: <E1, E2, T>(either: Either<E1, T>, func: (error: E1) => E2
 export const chain: <E1, T, E2, R>(either: Either<E1, T>, func: (data: T) => Either<E2, R>) => Either<E1 | E2, R>
 
 /** Unsafely runs Either instance throwing exception for Left case and returning value for Right case */
-export const unpackUnsafe: <E, T>(either: Either<E, T>) => T
+export const extractUnsafe: <E, T>(either: Either<E, T>) => T
