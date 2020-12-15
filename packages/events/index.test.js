@@ -19,7 +19,7 @@ const events = {
 const noop = () => undefined
 
 /** @type {() => Promise<void>} */
-const immediateTasks = () => new Promise(resolve => setTimeout(resolve, 0))
+const immediateTasks = () => new Promise(resolve => setTimeout(resolve, 10))
 
 // SECTION Tests
 

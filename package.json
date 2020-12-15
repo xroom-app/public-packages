@@ -15,6 +15,7 @@
   },
   "scripts": {
     "test": "npx jest",
+    "check": "npm test && tsc && npx eslint packages",
     "coverage": "npx jest --coverage && rm coverage -rf",
     "lerna-publish": "lerna publish from-package"
   }
