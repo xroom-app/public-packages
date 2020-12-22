@@ -1,6 +1,6 @@
 {
     "name": "@xroom.app/data-types",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Useful data types written in javascript",
     "author": "awerlogus",
     "license": "MIT",
@@ -11,7 +11,7 @@
     "bugs": {
         "url": "https://github.com/xroom-app/public-packages/issues"
     },
-    "homepage": "https://github.com/xroom-app/public-packages/packages/data-types/#readme",
+    "homepage": "https://github.com/xroom-app/public-packages/tree/master/packages/data-types/#readme",
     "keywords": [
         "nodejs",
         "data",

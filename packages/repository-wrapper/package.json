@@ -1,6 +1,6 @@
 {
     "name": "@xroom.app/repository-wrapper",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Wrapper synchronizing repository mutations",
     "author": "awerlogus",
     "license": "MIT",
@@ -11,7 +11,7 @@
     "bugs": {
         "url": "https://github.com/xroom-app/public-packages/issues"
     },
-    "homepage": "https://github.com/xroom-app/public-packages/packages/repository-wrapper/#readme",
+    "homepage": "https://github.com/xroom-app/public-packages/tree/master/packages/repository-wrapper/#readme",
     "keywords": [
         "nodejs",
         "wrapper",
