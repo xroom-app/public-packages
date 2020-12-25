@@ -3,7 +3,7 @@
 // MODULE Declarations
 
 /** Event listener type */
-export type Listener = (data: any) => void
+export type Listener = (...data: ReadonlyArray<any>) => void
 
 /** Event with listener type */
 export type Event = { [EventName in string] : Listener }

@@ -5,7 +5,7 @@ const { EventEmitter } = require('events')
 /**
  * Event listener type
  *
- * @typedef {(data: any) => void} Listener
+ * @typedef {(...data: ReadonlyArray<any>) => void} Listener
  */
 
 /**
