@@ -43,7 +43,7 @@ const { createEventSystem } = require('@xroom.app/events2')
  * )} Events
  */
 
-/** @typedef {import('.').EventSystem<Events>} EventSystem */
+/** @typedef {import('@xroom.app/events2').EventSystem<Events>} EventSystem */
 
 // SECTION Algebras
 
