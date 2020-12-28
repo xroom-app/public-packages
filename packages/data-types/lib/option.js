@@ -1,27 +1,41 @@
 // SECTION Types
 
 /**
+ * Represents None type
+ *
+ * @typedef {undefined} None
+ */
+
+/**
+ * Represents Some type
+ *
+ * @template T
+ *
+ * @typedef {T} Some
+ */
+
+/**
  * Represents optional value
  *
  * @template T
  *
- * @typedef {T | undefined} Option
+ * @typedef {Some<T> | None} Option
  */
 
 // SECTION Constants
 
-/** @type {undefined} */
+/** @type {Option<never>} */
 const none = undefined
 
-/** @type {<T>(data: T) => T} */
+/** @type {<T>(data: T) => Option<T>} */
 const some = data => data
 
 // SECTION Library
 
-/** @type {<T>(data: T) => data is T & typeof none} */
+/** @type {<T>(data: Option<T>) => data is None} */
 const isNone = data => data === none
 
-/** @type {<T>(data: T) => data is T} */
+/** @type {<T>(data: Option<T>) => data is Some<T>} */
 const isSome = data => data !== none
 
 /** @type {<P, R>(func: (data: P) => R) => (data: Option<P>) => Option<R>} */

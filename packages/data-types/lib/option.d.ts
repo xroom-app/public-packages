@@ -1,23 +1,29 @@
 // SECTION Types
 
+/** Represents None type */
+type None = undefined
+
+/** Represents Some type */
+type Some<T> = T
+
 /** Represents optional value */
-type Option<T> = T | undefined
+type Option<T> = Some<T> | None
 
 // SECTION Constants
 
 /** Empty value */
-export const none: undefined
+export const none: Option<never>
 
 /** Value contains data */
-export const some: <T>(data: T) => T
+export const some: <T>(data: T) => Option<T>
 
 // SECTION Library
 
 /** Returns true if passed data is None */
-export const isNone: <T>(data: T) => data is T & typeof None
+export const isNone: <T>(data: Option<T>) => data is None
 
 /** Returns true if passed data is Some */
-export const isSome: <T>(data: T) => data is T
+export const isSome: <T>(data: Option<T>) => data is Some<T>
 
 /** Maps option value with function */
 export const map: <P, R>(func: (data: P) => R) => (data: Option<P>) => Option<R>
