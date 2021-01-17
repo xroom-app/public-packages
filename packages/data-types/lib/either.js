@@ -4,11 +4,7 @@
 
 /** @template T @typedef {{ __tag: 'right', data: T }} Right */
 
-/**
- * @template E, T
- *
- * @typedef {Left<E> | Right<T>} Either
- */
+/** @template E, T @typedef {Left<E> | Right<T>} Either */
 
 // SECTION Constants
 

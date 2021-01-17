@@ -13,28 +13,6 @@ const getZero = () => 0
 
 // SECTION Tests
 
-describe('add1 function', () => {
-  it('should add 1 to number', () => {
-    expect(add1(0)).toBe(1)
-  })
-})
-
-describe('checkNonZero function', () => {
-  it('should return None if 0 passed', () => {
-    expect(checkNonZero(0)).toBe(O.none)
-  })
-
-  it('should return Some data if non 0 passed', () => {
-    expect(checkNonZero(1)).toBe(O.some(1))
-  })
-})
-
-describe('getZero function', () => {
-  it('should always return zero', () => {
-    expect(getZero()).toBe(0)
-  })
-})
-
 describe('isNone function', () => {
   it('should return true if None passed', () => {
     expect(O.isNone(O.none)).toBe(true)

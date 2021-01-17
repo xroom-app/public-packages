@@ -1,26 +1,10 @@
 // SECTION Types
 
-/**
- * Represents None type
- *
- * @typedef {undefined} None
- */
+/** @typedef {undefined} None */
 
-/**
- * Represents Some type
- *
- * @template T
- *
- * @typedef {T} Some
- */
+/** @template T @typedef {T} Some */
 
-/**
- * Represents optional value
- *
- * @template T
- *
- * @typedef {Some<T> | None} Option
- */
+/** @template T @typedef {Some<T> | None} Option */
 
 // SECTION Constants
 

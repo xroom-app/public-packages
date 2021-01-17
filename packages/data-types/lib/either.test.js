@@ -1,6 +1,6 @@
 const E = require('./either')
 
-// SECTION Library
+// SECTION Utils
 
 /** @type {(x: number) => number} */
 const add1 = x => x + 1
@@ -9,22 +9,6 @@ const add1 = x => x + 1
 const checkNonZero = x => x === 0 ? E.left('zero') : E.right(x)
 
 // SECTION Tests
-
-describe('add1 function', () => {
-  it('should add 1 to number', () => {
-    expect(add1(0)).toBe(1)
-  })
-})
-
-describe('checkNonZero function', () => {
-  it('should return Left value if 0 passed', () => {
-    expect(checkNonZero(0)).toMatchObject(E.left('zero'))
-  })
-
-  it('should return Right value if non 0 passed', () => {
-    expect(checkNonZero(1)).toMatchObject(E.right(1))
-  })
-})
 
 describe('constructor of Left type', () => {
   it('should not change data', () => {
