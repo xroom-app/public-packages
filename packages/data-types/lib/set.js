@@ -1,3 +1,13 @@
+// SECTION Types
+
+// MODULE Imports
+
+/** @template T @typedef {import('./predicate').Predicate<T>} Predicate */
+
+/** @template P, R @typedef {import('./function').Arrow<P, R>} Arrow */
+
+/** @template T @typedef {import('./function').Endo<T>} Endo */
+
 // SECTION Library
 
 /** @type {<T = never>(elements?: Iterable<T>) => Set<T>} */
@@ -6,7 +16,7 @@ const create = elements => new Set(elements)
 /** @type {<T1, T2>(set1: Set<T1>, set2: Set<T2>) => Set<T1 | T2>} */
 const union = (set1, set2) => create([...set1, ...set2])
 
-/** @type {<T>(predicate: (elem: T) => boolean) => (set: Set<T>) => [onTrue: Set<T>, onFalse: Set<T>]} */
+/** @type {<T>(predicate: Predicate<[T]>) => (set: Set<T>) => [onTrue: Set<T>, onFalse: Set<T>]} */
 const separate = predicate => set => {
   /** @type {typeof set} */
   const onTrue = create()
@@ -23,7 +33,7 @@ const separate = predicate => set => {
   return [onTrue, onFalse]
 }
 
-/** @type {<T>(predicate: (elem: T) => boolean) => (set: Set<T>) => boolean} */
+/** @type {<T>(predicate: Predicate<[T]>) => Predicate<[Set<T>]>} */
 const some = predicate => set => {
   for (const elem of set) {
     if (predicate(elem)) {
@@ -34,7 +44,7 @@ const some = predicate => set => {
   return false
 }
 
-/** @type {<T>(predicate: (elem: T) => boolean) => (set: Set<T>) => boolean} */
+/** @type {<T>(predicate: Predicate<[T]>) => Predicate<[Set<T>]>} */
 const every = predicate => set => {
   for (const elem of set) {
     if (!predicate(elem)) {
@@ -45,7 +55,7 @@ const every = predicate => set => {
   return true
 }
 
-/** @type {<I, O>(func: (elem:I) => O) => (set: Set<I>) => Set<O>} */
+/** @type {<I, O>(func: Arrow<I, O>) => Arrow<Set<I>, Set<O>>} */
 const map = func => set => {
   /** @type {Set<ReturnType<typeof func>>} */
   const result = create()
@@ -57,7 +67,7 @@ const map = func => set => {
   return result
 }
 
-/** @type {<T>(predicate: (elem: T) => boolean) => (set: Set<T>) => Set<T>} */
+/** @type {<T>(predicate: Predicate<[T]>) => Endo<Set<T>>} */
 const filter = predicate => set => {
   /** @type {typeof set} */
   const result = create()

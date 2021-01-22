@@ -1,3 +1,5 @@
+import { Arrow } from './function'
+
 // SECTION Types
 
 /** Left type provides data about error when something went wrong */
@@ -26,13 +28,13 @@ export const isLeft: <E, T>(either: Either<E, T>) => either is Left<E>
 export const isRight: <E, T>(either: Either<E, T>) => either is Right<T>
 
 /** Maps value of Either if it is Right */
-export const map: <E, T, R>(either: Either<E, T>, func: (data: T) => R) => Either<E, R>
+export const map: <E, T, R>(either: Either<E, T>, func: Arrow<T, R>) => Either<E, R>
 
 /** Maps value of Either if it is Left */
-export const mapLeft: <E1, E2, T>(either: Either<E1, T>, func: (error: E1) => E2) => Either<E2, T>
+export const mapLeft: <E1, E2, T>(either: Either<E1, T>, func: Arrow<E1, E2>) => Either<E2, T>
 
 /** Chains Either value with function */
-export const chain: <E1, T, E2, R>(either: Either<E1, T>, func: (data: T) => Either<E2, R>) => Either<E1 | E2, R>
+export const chain: <E1, T, E2, R>(either: Either<E1, T>, func: Arrow<T, Either<E2, R>>) => Either<E1 | E2, R>
 
 /** Unsafely runs Either instance throwing exception for Left case and returning value for Right case */
 export const extractUnsafe: <E, T>(either: Either<E, T>) => T

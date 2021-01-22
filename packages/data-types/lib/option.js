@@ -1,5 +1,13 @@
 // SECTION Types
 
+// MODULE Imports
+
+/** @template P, R @typedef {import('./function').Arrow<P, R>} Arrow */
+
+/** @template T @typedef {import('./function').Lazy<T>} Lazy */
+
+// MODULE Declarations
+
 /** @typedef {undefined} None */
 
 /** @template T @typedef {T} Some */
@@ -22,17 +30,17 @@ const isNone = data => data === none
 /** @type {<T>(data: Option<T>) => data is Some<T>} */
 const isSome = data => data !== none
 
-/** @type {<P, R>(func: (data: P) => R) => (data: Option<P>) => Option<R>} */
-const map = func => data => isSome(data) ? func(data) : none
+/** @type {<P, R>(func: Arrow<P, R>) => Arrow<Option<P>, Option<R>>} */
+const map = func => data => isSome(data) ? some(func(data)) : none
 
-/** @type {<P, R>(func: (data: P) => Option<R>) => (data: Option<P>) => Option<R>} */
+/** @type {<P, R>(func: Arrow<P, Option<R>>) => Arrow<Option<P>, Option<R>>} */
 const chain = func => data => isSome(data) ? func(data) : none
 
-/** @type {<T1>(value: () => T1) => <T2>(data: Option<T2>) => T1 | T2} */
+/** @type {<T1>(value: Lazy<T1>) => <T2>(data: Option<T2>) => T1 | T2} */
 const getOrElse = value => data => isSome(data) ? data : value()
 
 /** @type {<T>(value: T | null) => Option<T>} */
-const fromNullable = value => value !== null ? value : none
+const fromNullable = value => value !== null ? some(value) : none
 
 // SECTION Exports
 
