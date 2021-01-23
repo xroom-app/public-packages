@@ -65,7 +65,7 @@
     "function-call-argument-newline": ["error", "consistent"],
     "function-paren-newline": ["error", "consistent"],
     "func-call-spacing": ["error", "never"],
-    "func-names": "error",
+    "func-names": ["error", "always", { "generators": "never" }],
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
     "generator-star-spacing": ["error", { "before": false, "after": true }],
     "getter-return": "error",
