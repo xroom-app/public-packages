@@ -4,10 +4,10 @@
 export type Predicate<P extends ReadonlyArray<any>> = (...args: P) => boolean
 
 /** Represents unary operation over predicate */
-export type PredicateOperation<P extends ReadonlyArray<any>> = (pred: Predicate<P>) => Predicate<P>
+export type PredicateOperation = <P extends ReadonlyArray<any>>(pred: Predicate<P>) => Predicate<P>
 
 /** Represents combinator that accepts two predicates and returns their combination */
-export type PredicateCombinator<P extends ReadonlyArray<any>> = (pred1: Predicate<P>, pred2: Predicate<P>) => Predicate<P>
+export type PredicateCombinator = <P extends ReadonlyArray<any>>(pred1: Predicate<P>, pred2: Predicate<P>) => Predicate<P>
 
 // SECTION Library
 

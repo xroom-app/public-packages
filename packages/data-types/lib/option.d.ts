@@ -1,4 +1,4 @@
-import { Lazy } from './function'
+import { Arrow, Lazy } from './function'
 
 // SECTION Types
 
