@@ -40,4 +40,4 @@ type SetMethods = {
  *
  * @return list of set redis methods
  */
-export function getSetRedisMethods(clientPromise): SetMethods
+export function getSetRedisMethods(clientPromise: Promise<RedisClient>): SetMethods
