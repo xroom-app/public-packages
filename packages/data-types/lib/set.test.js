@@ -80,6 +80,20 @@ describe('every function', () => {
   })
 })
 
+describe('none function', () => {
+  it('should return true if empty set passed', () => {
+    expect(S.none(geq3)(S.create())).toBe(true)
+  })
+
+  it('should return true if no elements pass predicate', () => {
+    expect(S.none(geq3)(S.create([0, 1, 2]))).toBe(true)
+  })
+
+  it('should return false if some element passes predicate', () => {
+    expect(S.none(geq3)(S.create([1, 2, 3]))).toBe(false)
+  })
+})
+
 describe('map function', () => {
   it('should return empty set if empty set passed', () => {
     expect(S.map(add1)(S.create())).toMatchObject(S.create())

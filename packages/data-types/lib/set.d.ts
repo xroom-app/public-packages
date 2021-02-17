@@ -18,6 +18,9 @@ export const some: <T>(predicate: Predicate<[T]>) => Predicate<[Set<T>]>
 /** Returns true if every set element passes predicate */
 export const every: <T>(predicate: Predicate<[T]>) => Predicate<[Set<T>]>
 
+/** Returns true if none of set elements match predicate */
+export const none: <T>(predicate: Predicate<[T]>) => Predicate<[Set<T>]>
+
 /** Returns set with elements mapped by function */
 export const map: <I, O>(func: Arrow<I, O>) => Arrow<Set<I>, Set<O>>
 

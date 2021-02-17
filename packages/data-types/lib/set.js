@@ -1,3 +1,6 @@
+const B = require('./predicate')
+const F = require('./function')
+
 // SECTION Types
 
 // MODULE Imports
@@ -45,6 +48,9 @@ const some = predicate => set => {
 }
 
 /** @type {<T>(predicate: Predicate<[T]>) => Predicate<[Set<T>]>} */
+const none = F.flow(some, B.not)
+
+/** @type {<T>(predicate: Predicate<[T]>) => Predicate<[Set<T>]>} */
 const every = predicate => set => {
   for (const elem of set) {
     if (!predicate(elem)) {
@@ -86,4 +92,4 @@ const empty = set => set.size === 0
 
 // SECTION Exports
 
-module.exports = { create, union, separate, some, every, map, filter, empty }
+module.exports = { create, union, separate, some, every, none, map, filter, empty }
