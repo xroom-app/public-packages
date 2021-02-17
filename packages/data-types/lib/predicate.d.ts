@@ -31,3 +31,9 @@ export const nand: PredicateCombinator
 
 /** Returns 'nor' predicate combination */
 export const nor: PredicateCombinator
+
+/** Returns some function result if predicate is true, or none otherwise */
+export const then: <P extends ReadonlyArray<any>, R>(pred: Predicate<P>, func: Func<P, R>) => Func<P, Option<R>>
+
+/** Returns first function result if predicate is true, or the second function result otherwise */
+export const thenElse: <P extends ReadonlyArray<any>, R1, R2>(pred: Predicate<P>, onThen: Func<P, R1>, onElse: Func<P, R2>) => Func<P, R1 | R2>

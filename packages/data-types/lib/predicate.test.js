@@ -1,4 +1,5 @@
 const B = require('./predicate')
+const O = require('./option')
 
 // SECTION Utils
 
@@ -7,6 +8,12 @@ function positive (number) { return number > 0 }
 
 /** @type {(number: number) => boolean} */
 function nonNegative (number) { return number >= 0 }
+
+/** @type {(number: number) => number} */
+function add1 (number) { return number + 1 }
+
+/** @type {(number: number) => number} */
+function add2 (number) { return number + 2 }
 
 // SECTION Tests
 
@@ -125,5 +132,25 @@ describe('function nor', () => {
 
   it('should return predicate that returns true if predicates return (false, false)', () => {
     expect(B.nor(positive, nonNegative)(-1)).toBe(true)
+  })
+})
+
+describe('function then', () => {
+  it('should return some function result if predicate returns true', () => {
+    expect(B.then(nonNegative, add1)(0)).toBe(O.some(1))
+  })
+
+  it('should return none if predicate returns false', () => {
+    expect(B.then(positive, add1)(0)).toBe(O.none)
+  })
+})
+
+describe('function thenElse', () => {
+  it('should return first function result if predicate returns true', () => {
+    expect(B.thenElse(nonNegative, add1, add2)(0)).toBe(1)
+  })
+
+  it('should return second function result if predicate returns false', () => {
+    expect(B.thenElse(positive, add1, add2)(0)).toBe(2)
   })
 })
