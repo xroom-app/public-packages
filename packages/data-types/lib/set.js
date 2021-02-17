@@ -81,6 +81,9 @@ const filter = predicate => set => {
   return result
 }
 
+/** @type {Predicate<[Set<any>]>} */
+const empty = set => set.size === 0
+
 // SECTION Exports
 
-module.exports = { create, union, separate, some, every, map, filter }
+module.exports = { create, union, separate, some, every, map, filter, empty }

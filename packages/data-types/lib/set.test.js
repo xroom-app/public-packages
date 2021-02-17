@@ -103,3 +103,13 @@ describe('filter function', () => {
     expect(S.filter(geq3)(S.create([2, 3, 4]))).toMatchObject(S.create([3, 4]))
   })
 })
+
+describe('empty function', () => {
+  it('should return true if empty set passed', () => {
+    expect(S.empty(S.create())).toBe(true)
+  })
+
+  it('should return false if non empty set passed', () => {
+    expect(S.empty(S.create([1, 2, 3]))).toBe(false)
+  })
+})

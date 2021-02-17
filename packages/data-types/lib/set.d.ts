@@ -23,3 +23,6 @@ export const map: <I, O>(func: Arrow<I, O>) => Arrow<Set<I>, Set<O>>
 
 /** Returns set with elements passes predicate */
 export const filter: <T>(predicate: Predicate<[T]>) => Endo<Set<T>>
+
+/** Returns true if set is empty */
+export const empty: Predicate<[Set<any>]>
