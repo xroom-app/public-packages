@@ -1,3 +1,6 @@
+import { Func } from './function'
+import { Option } from './option'
+
 // SECTION Types
 
 /** Represents abstract predicate with parameters P */
