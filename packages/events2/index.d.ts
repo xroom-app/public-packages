@@ -25,4 +25,4 @@ export type EventSystem<E extends Event> = RegisterListener<E> & RemoveListener 
 // SECTION Library
 
 /** Returns new event system */
-export function createEventSystem<E extends Event> (): EventSystem<E>
+export function createEventSystem<E extends Event> (maxListeners?: number): EventSystem<E>

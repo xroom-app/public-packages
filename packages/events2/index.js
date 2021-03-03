@@ -55,10 +55,16 @@ const { EventEmitter } = require('events')
  *
  * @template {Event} E
  *
+ * @param {number} [maxListeners] maximal listeners
+ *
  * @return {EventSystem<E>}
  */
-function createEventSystem () {
+function createEventSystem (maxListeners) {
   const emitter = new EventEmitter()
+
+  if (maxListeners !== undefined) {
+    emitter.setMaxListeners(maxListeners)
+  }
 
   /** @type {Map<Symbol, { [T in keyof E]: E[T] }>} */
   const removeEvents = new Map()
