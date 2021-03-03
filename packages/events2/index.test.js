@@ -75,4 +75,20 @@ describe('event system', () => {
 
     expect(result).toMatchObject(['foo', 'FOO'])
   })
+
+  it('should register listener although max listeners number exceeded', () => {
+    /** @type {EventSystem} */
+    const eventSystem = createEventSystem(1)
+
+    /** @type {Array<string>} */
+    const result = []
+
+    eventSystem.on('firstEvent', data => result.push(data.toLowerCase()))
+
+    eventSystem.on('firstEvent', data => result.push(data.toUpperCase()))
+
+    eventSystem.emit('firstEvent', 'foo')
+
+    expect(result).toMatchObject(['foo', 'FOO'])
+  })
 })
