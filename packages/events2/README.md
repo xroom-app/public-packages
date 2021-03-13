@@ -17,17 +17,17 @@ const { createEventSystem } = require('@xroom.app/events2')
 
 /** @typedef {import('@xroom.app/events2').Event} Event */
 
-/** @template {Event} E @typedef {import('@xroom.app/events2').RegisterListener<E>} Reg */
-
 /** @template {Event} E @typedef {import('@xroom.app/events2').EmitEvent<E>} Emit */
 
+/** @template {Event} E @typedef {import('@xroom.app/events2').RegisterListener<E>} Reg */
+
 // SECTION Events
+
+/** @typedef {{ roomsCleared: () => void }} RoomsCleared */
 
 /** @typedef {{ roomCreated: (name: string) => void }} RoomCreated */
 
 /** @typedef {{ roomRemoved: (name: string) => void }} RoomRemoved */
-
-/** @typedef {{ roomsCleared: () => void }} RoomsCleared */
 
 /**
  * @typedef {(
@@ -47,39 +47,52 @@ const { createEventSystem } = require('@xroom.app/events2')
 
 // SECTION Algebras
 
+/** @typedef {{ clearRooms: () => void }} ClearRooms */
+
 /** @typedef {{ addRoom: (name: string) => void }} AddRoom */
 
 /** @typedef {{ removeRoom: (name: string) => void }} RemoveRoom */
-
-/** @typedef {{ clearRooms: () => void }} ClearRooms */
 
 /** @typedef {{ listRooms: () => ReadonlyArray<string> }} ListRooms */
 
 /**
  * @typedef {(
  *  & AddRoom
- *  & RemoveRoom
- *  & ClearRooms
  *  & ListRooms
+ *  & ClearRooms
+ *  & RemoveRoom
  * )} RoomRepository
  */
 
 /** @typedef {{ log: (message: string) => void }} Log */
 
+/**
+ * @typedef {(
+ *  & Log
+ * )} Logger
+ */
+
+/**
+ * @typedef {(
+ *  & Logger
+ *  & EventSystem
+ *  & RoomRepository
+ * )} Program
+ */
+
 /** @typedef {{ getLogs: () => ReadonlyArray<string> }} GetLogs */
 
 /**
  * @typedef {(
- *  & Log
+ *  & Logger
  *  & GetLogs
  * )} TestLogger
  */
 
 /**
  * @typedef {(
- *  & RoomRepository
+ *  & Program
  *  & TestLogger
- *  & EventSystem
  * )} TestProgram
  */
 
@@ -124,62 +137,45 @@ function createTestLogger () {
 /** @type {() => TestProgram} */
 function createTestProgram () {
   return {
-    ...createRoomRepository(),
     ...createTestLogger(),
-    ...createEventSystem()
+    ...createEventSystem(),
+    ...createRoomRepository(),
   }
 }
 
 // SECTION Event listeners
 
-/** @type {(P: AddRoom & Reg<RoomCreated>) => void} */
-function enableRoomCreatedMutation (P) { P.on('roomCreated', P.addRoom) }
+/** @type {(P: Program) => void} */
+function enableProgramSubscriptions (P) {
+  // On room created, add room to repository
+  P.on('roomCreated', P.addRoom)
 
-/** @type {(P: Log & Reg<RoomCreated>) => void} */
-function enableRoomCreatedLogging (P) { P.on('roomCreated', name => P.log(`Created room with name '${name}'`)) }
+  // On room removed, remove it from repository
+  P.on('roomRemoved', P.removeRoom)
 
-/** @type {(P: RemoveRoom & Reg<RoomRemoved>) => void} */
-function enableRoomRemovedMutation (P) { P.on('roomRemoved', P.removeRoom) }
-
-/** @type {(P: Log & Reg<RoomRemoved>) => void} */
-function enableRoomRemovedLogging (P) { P.on('roomRemoved', name => P.log(`Removed room with name '${name}'`)) }
-
-/** @type {(P: ClearRooms & Reg<RoomsCleared>) => void} */
-function enableClearedRoomsMutation (P) { P.on('roomsCleared', P.clearRooms) }
-
-/** @type {(P: Log & Reg<RoomsCleared>) => void} */
-function enableClearedRoomsLogging (P) { P.on('roomsCleared', () => P.log('Cleared all rooms')) }
-
-/** @type {(P: Log & AddRoom & Reg<RoomCreated>) => void} */
-function enableRoomCreatedListeners (P) {
-  enableRoomCreatedMutation(P)
-  enableRoomCreatedLogging(P)
+  // On rooms cleared, clear it in repository
+  P.on('roomsCleared', P.clearRooms)
 }
 
-/** @type {(P: Log & RemoveRoom & Reg<RoomRemoved>) => void} */
-function enableRoomRemovedListeners (P) {
-  enableRoomRemovedMutation(P)
-  enableRoomRemovedLogging(P)
-}
+/** @type {(P: Reg<Events> & Log) => void} */
+function enableProgramLogging (P) {
+  // On room created, log a message about it
+  P.on('roomCreated', name => P.log(`Created room with name '${name}'`))
 
-/** @type {(P: Log & ClearRooms & Reg<RoomsCleared>) => void} */
-function enableRoomClearedListeners (P) {
-  enableClearedRoomsMutation(P)
-  enableClearedRoomsLogging(P)
-}
+  // On room removed, log a message about it
+  P.on('roomRemoved', name => P.log(`Removed room with name '${name}'`))
 
-/** @type {(P: Log & RoomRepository & Reg<RoomEvents>) => void} */
-function enableEventListeners (P) {
-  enableRoomCreatedListeners(P)
-  enableRoomRemovedListeners(P)
-  enableRoomClearedListeners(P)
+  // On rooms are cleared, log a message about it
+  P.on('roomsCleared', () => P.log('Cleared all rooms'))
 }
 
 // SECTION Test
 
 const program = createTestProgram()
 
-enableEventListeners(program)
+enableProgramLogging(program)
+
+enableProgramSubscriptions(program)
 
 program.emit('roomCreated', 'room1')
 program.emit('roomCreated', 'room2')
