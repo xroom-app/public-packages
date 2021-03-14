@@ -6,7 +6,7 @@ import { Option } from './option'
 export type JsonArray = ReadonlyArray<Json>
 
 /** Represents json object */
-export type JsonRecord = { readonly [key: string]: Json }
+export type JsonRecord = { readonly [key: string]: Json | undefined }
 
 /** Represents all possible json values */
 export type Json = boolean | number | string | null | JsonRecord | JsonArray | readonly []

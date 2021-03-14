@@ -6,7 +6,7 @@ const O = require('./option')
 
 /** @typedef {ReadonlyArray<Json>} JsonArray */
 
-/** @typedef {{ readonly [key: string]: Json }} JsonRecord */
+/** @typedef {{ readonly [key: string]: Json | undefined }} JsonRecord */
 
 /** @typedef {boolean | number | string | null | JsonRecord | JsonArray | readonly []} Json */
 
