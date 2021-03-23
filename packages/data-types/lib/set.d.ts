@@ -24,6 +24,9 @@ export const none: <T>(predicate: Predicate<[T]>) => Predicate<[Set<T>]>
 /** Returns set with elements mapped by function */
 export const map: <I, O>(func: Arrow<I, O>) => Arrow<Set<I>, Set<O>>
 
+/** Returns set with elements flat mapped by function */
+export const chain: <I, O>(func: Arrow<I, Set<O>>) => Arrow<Set<I>, Set<O>>
+
 /** Returns set with elements passes predicate */
 export const filter: <T>(predicate: Predicate<[T]>) => Endo<Set<T>>
 

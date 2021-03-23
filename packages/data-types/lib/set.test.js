@@ -8,6 +8,9 @@ function geq3 (number) { return number >= 3 }
 /** @type {(number: number) => number} */
 function add1 (number) { return number + 1 }
 
+/** @type {(number: number) => Set<number>} */
+function getThisAndNext (number) { return new Set([number, number + 1]) }
+
 // SECTION Tests
 
 describe('create function', () => {
@@ -101,6 +104,20 @@ describe('map function', () => {
 
   it('should return set with elements mapped with function', () => {
     expect(S.map(add1)(S.create([0, 1, 2]))).toMatchObject(S.create([1, 2, 3]))
+  })
+})
+
+describe('chain function', () => {
+  it('should return empty set if empty set passed', () => {
+    expect(S.chain(getThisAndNext)(S.create())).toMatchObject(S.create())
+  })
+
+  it('should return union of sets returned by mapper', () => {
+    expect(S.chain(getThisAndNext)(S.create([0, 2]))).toMatchObject(S.create([0, 1, 2, 3]))
+  })
+
+  it('should remove duplicates from set', () => {
+    expect(S.chain(getThisAndNext)(S.create([0, 1]))).toMatchObject(S.create([0, 1, 2]))
   })
 })
 

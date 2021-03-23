@@ -73,6 +73,22 @@ const map = func => set => {
   return result
 }
 
+/** @type {<I, O>(func: Arrow<I, Set<O>>) => Arrow<Set<I>, Set<O>>} */
+const chain = func => set => {
+  /** @type {ReturnType<typeof func>} */
+  const result = create()
+
+  for (const elem of set) {
+    const res = func(elem)
+
+    for (const e of res) {
+      result.add(e)
+    }
+  }
+
+  return result
+}
+
 /** @type {<T>(predicate: Predicate<[T]>) => Endo<Set<T>>} */
 const filter = predicate => set => {
   /** @type {typeof set} */
@@ -92,4 +108,4 @@ const empty = set => set.size === 0
 
 // SECTION Exports
 
-module.exports = { create, union, separate, some, every, none, map, filter, empty }
+module.exports = { create, union, separate, some, every, none, map, chain, filter, empty }
