@@ -44,7 +44,7 @@ const lengthMatches = validator => data => {
 const leq = number => data => data <= number ? E.right(data) : E.left([ER.conditionError(`less or equal to ${number}`, data)])
 ```
 
-## Combine your and bundled validators into models
+### Combine your and bundled validators into models
 
 ```js
 const validatePassword = V.chain(V.chain(T.string, nonEmpty), lengthMatches(leq(32)))
@@ -55,7 +55,7 @@ const validateOptions = T.type([
 ])
 ```
 
-## Get readable errors out of box
+### Get readable errors out of box
 
 ```js
 const data = {
