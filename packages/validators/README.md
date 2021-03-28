@@ -22,9 +22,9 @@ const T = require('@xroom.app/validators/lib/basic')
 
 // MODULE Imports
 
-/** @template T @typedef {import('./basic').ValidationResult<T>} ValidationResult */
+/** @template T @typedef {import('@xroom.app/validators/lib/basic').ValidationResult<T>} ValidationResult */
 
-/** @template T1, T2 @typedef {import('./basic').ValidatorExtension<T1, T2>} ValidatorExtension */
+/** @template T1, T2 @typedef {import('@xroom.app/validators/lib/basic').ValidatorExtension<T1, T2>} ValidatorExtension */
 
 // SECTION Constants
 
