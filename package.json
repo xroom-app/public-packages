@@ -12,13 +12,11 @@
     "husky": "^5.0.6",
     "jest": "^26.4.2",
     "lerna": "^3.22.1",
-    "typescript": "^4.2.0-dev.20210125",
-    "typescript-coverage-report": "^0.4.0"
+    "typescript": "^4.3.0-dev.20210328"
   },
   "scripts": {
     "test": "npx jest --coverage && rm coverage -rf",
-    "check": "npm test && tsc && npm run type-coverage && npx eslint packages",
-    "type-coverage": "npx typescript-coverage-report -t 100 -o coverage && rm coverage -rf",
+    "check": "npm test && tsc && npx eslint packages",
     "lerna-publish": "lerna publish from-package"
   },
   "jest": {

@@ -3,4 +3,3 @@
 
 npm test
 tsc
-npm run type-coverage
