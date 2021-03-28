@@ -8,19 +8,19 @@ import { Tuple } from './util'
 type PropType = 'optional' | 'required'
 
 /** Standard unknown value validator */
-type Validator<T> = ValidatorExtension<unknown, T>
+export type Validator<T> = ValidatorExtension<unknown, T>
 
 /** Result of validation - array of errors or value of type T */
-type ValidationResult<T> = Either<ReadonlyArray<ValidateError>, T>
+export type ValidationResult<T> = Either<ReadonlyArray<ValidateError>, T>
 
 /** Validates data T1 and returns validation result of type T2 */
-type ValidatorExtension<T1, T2> = (data: T1) => ValidationResult<T2>
+export type ValidatorExtension<T1, T2> = (data: T1) => ValidationResult<T2>
 
 /** Converts information about property to object type */
 type PropToObject<P extends PropType, K extends string, T> = P extends 'optional' ? { [KEY in K]?: T } : { [KEY in K]: T }
 
 /** Returns type of validator passed */
-type ValidatorType<V extends Validator<any>> = V extends Validator<infer T> ? T : never
+export type ValidatorType<V extends Validator<any>> = V extends Validator<infer T> ? T : never
 
 /** Merges tuple of prop validators to a single object validator */
 type PropsToObject<T extends Tuple<Validator<Record<string, any>>>> = UnionToIntersection<ValidatorType<T[number]>>
