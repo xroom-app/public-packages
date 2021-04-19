@@ -31,6 +31,16 @@ type Compute<T> = T extends Function ? T : { [K in keyof T]: T[K] } & unknown
 /** Converts union of types to its intersection */
 type UnionToIntersection<U> = Compute<(U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never>
 
+/** Converts tuple of validators to tuple of validator types */
+type TupleFromValidator<T extends Tuple<Validator<any>>> =
+  T extends [infer HEAD, ...infer Tail]
+  ? HEAD extends Validator<any>
+    ? Tail extends Tuple<Validator<any>>
+      ? [ValidatorType<HEAD>, ...TupleFromValidator<Tail>]
+      : [ValidatorType<HEAD>]
+    : []
+  : []
+
 // SECTION Constants
 
 /** Validates that value is string */
@@ -53,6 +63,9 @@ export const literal: <T extends string | boolean | number>(value: T) => Validat
 
 /** Validates that value is array of type determined by validator passed */
 export const array: <T>(validator: Validator<T>) => Validator<ReadonlyArray<T>>
+
+/** Validates that value is tuple with all elements matching validators passed  */
+export const tuple: <T extends Tuple<Validator<any>>>(validators: T) => Validator<TupleFromValidator<T>>
 
 /** Validates that value is a member of enumeration passed */
 export const enumeration: <T extends string | boolean | number>(object: Record<string, T>) => Validator<T>

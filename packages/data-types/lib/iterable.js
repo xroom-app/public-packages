@@ -48,12 +48,13 @@ const fold = func => iter => {
     accumulator
 
   for (const elem of iter) {
-    if (!initElement) {
-      accumulator = func(accumulator, elem)
-    } else {
+    if (initElement) {
       accumulator = elem
 
       initElement = false
+    } else {
+      // @ts-ignore necessary
+      accumulator = func(accumulator, elem)
     }
   }
 

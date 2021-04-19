@@ -1,4 +1,4 @@
-const { prepend, same, mapFind, getTypeOf, literalToString } = require('./util')
+const { same, getTypeOf, literalToString } = require('./util')
 
 // SECTION Library
 
@@ -25,16 +25,6 @@ describe('geq5 function', () => {
   })
 })
 
-describe('prepend function', () => {
-  it('should add the only element to empty array', () => {
-    expect(prepend(0)([])).toMatchObject([0])
-  })
-
-  it('should add element to the beginning of non empty array', () => {
-    expect(prepend(0)([1, 2])).toMatchObject([0, 1, 2])
-  })
-})
-
 describe('same function', () => {
   it('should return true if literals are equal', () => {
     expect(same(1, 1)).toBe(true)
@@ -49,16 +39,6 @@ describe('same function', () => {
     expect(same('1', '0')).toBe(false)
     expect(same(false, true)).toBe(false)
     expect(same(true, false)).toBe(false)
-  })
-})
-
-describe('mapFind function', () => {
-  it('should map values and find the first one matches predicate', () => {
-    expect(mapFind(add1, geq5)([3, 6, 9])).toBe(7)
-  })
-
-  it('should return undefined if no one element matches predicate', () => {
-    expect(mapFind(add1, geq5)([0, 1, 2])).toBeUndefined()
   })
 })
 

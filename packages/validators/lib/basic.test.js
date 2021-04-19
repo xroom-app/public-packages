@@ -2,6 +2,11 @@ const E = require('@xroom.app/data-types/lib/either')
 const ER = require('./errors')
 const T = require('./basic')
 
+// SECTION Constants
+
+/** @type {T.Validator<number>} */
+const stringToLength = data => typeof data === 'string' ? E.right(data.length) : E.left([ER.typeError('string', data)])
+
 // SECTION Tests
 
 describe('string validator', () => {
@@ -81,6 +86,59 @@ describe('array validator', () => {
       ER.typeError('number', true)
     ]))
   })
+
+  it('should return new array with elements mapped by validator passed', () => {
+    expect(T.array(stringToLength)(['0', '01', '012'])).toMatchObject(E.right([1, 2, 3]))
+  })
+
+  it('should return error if element doesn\'t match mapping validator passed', () => {
+    expect(T.array(stringToLength)(['0', '01', 3])).toMatchObject(E.left([
+      ER.containerError('Array', 1),
+      ER.typeError('string', 3)
+    ]))
+  })
+})
+
+describe('tuple validator', () => {
+  it('should return data if valid tuple passed', () => {
+    expect(T.tuple([T.number, T.string])([0, ''])).toMatchObject(E.right([0, '']))
+  })
+
+  it('should return type error for non tuple type', () => {
+    expect(T.tuple([T.number])(1)).toMatchObject(E.left([ER.typeError('Tuple', 1)]))
+  })
+
+  it('should return tuple container error if elements not match types', () => {
+    expect(T.tuple([T.number, T.string])([1, 2])).toMatchObject(E.left([
+      ER.containerError('Tuple', 1),
+      ER.fieldError('1'),
+      ER.typeError('string', 2)
+    ]))
+
+    expect(T.tuple([T.number, T.string])(['', 2])).toMatchObject(E.left([
+      ER.containerError('Tuple', 1),
+      ER.fieldError('0'),
+      ER.typeError('number', '')
+    ]))
+
+    expect(T.tuple([T.number, T.string])(['', ''])).toMatchObject(E.left([
+      ER.containerError('Tuple', 1),
+      ER.fieldError('0'),
+      ER.typeError('number', '2'),
+    ]))
+  })
+
+  it('should return literal error if length doesn\'t match', () => {
+    expect(T.tuple([T.number, T.string])([1, 2, 3])).toMatchObject(E.left([
+      ER.containerError('Tuple', 1),
+      ER.fieldError('length'),
+      ER.conditionError('equals 2', 3),
+    ]))
+  })
+
+  it('should return new tuple with elements mapped by validators passed', () => {
+    expect(T.tuple([stringToLength, stringToLength, stringToLength])(['0', '01', '012'])).toMatchObject(E.right([1, 2, 3]))
+  })
 })
 
 describe('enumeration validator', () => {
@@ -120,8 +178,8 @@ describe('prop validator', () => {
     expect(T.prop('optional', 'foo', T.number)(0)).toMatchObject(E.left([ER.typeError('object', 0)]))
   })
 
-  it('should return data if object doesn\'t contain prop but validator is optional', () => {
-    expect(T.prop('optional', 'foo', T.number)({ bar: 0 })).toMatchObject(E.right({ bar: 0 }))
+  it('should return empty object if object doesn\'t contain prop but validator is optional', () => {
+    expect(T.prop('optional', 'foo', T.number)({ bar: 0 })).toMatchObject(E.right({}))
   })
 
   it('should return error if object doesn\'t contain required prop', () => {

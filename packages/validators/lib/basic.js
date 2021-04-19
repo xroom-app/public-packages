@@ -1,5 +1,5 @@
-const { mapFind, prepend, same, literalToString } = require('./util')
 const E = require('@xroom.app/data-types/lib/either')
+const { same, literalToString } = require('./util')
 const ER = require('./errors')
 
 // SECTION Types
@@ -27,7 +27,6 @@ const ER = require('./errors')
  * @template {string} K
  * @template T
  *
- *
  * @typedef {(
  *   P extends 'optional'
  *     ? { [KEY in K]?: T }
@@ -42,6 +41,18 @@ const ER = require('./errors')
 /** @template {Tuple<Validator<Record<string, any>>>} T @typedef {UnionToIntersection<ValidatorType<T[number]>>} PropsToObject */
 
 /** @template U @typedef {Compute<(U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never>} UnionToIntersection */
+
+/**
+ * @template {Tuple<Validator<any>>} T
+ *
+ * @typedef {T extends [infer HEAD, ...infer Tail]
+ *   ? HEAD extends Validator<any>
+ *     ? Tail extends Tuple<Validator<any>>
+ *       ? [ValidatorType<HEAD>, ...TupleFromValidator<Tail>]
+ *       : [ValidatorType<HEAD>]
+ *   : [] : []
+ * } TupleFromValidator
+ */
 
 // SECTION Library
 
@@ -69,13 +80,62 @@ const array = validator => data => {
     return E.left([ER.typeError('Array', data)])
   }
 
-  const left = mapFind(validator, E.isLeft)(data)
+  /** @type {Array<any>} */
+  const result = []
 
-  if (left === undefined) {
-    return E.right(data)
+  for (const elem of data) {
+    const validated = validator(elem)
+
+    if (E.isLeft(validated)) {
+      return E.left([
+        ER.containerError('Array', 1),
+        ...validated.data,
+      ])
+    }
+
+    result.push(validated.data)
   }
 
-  return E.mapLeft(left, prepend(ER.containerError('Array', 1)))
+  return E.right(result)
+}
+
+/** @type {<T extends Tuple<Validator<any>>>(validators: T) => Validator<TupleFromValidator<T>>} */
+// @ts-ignore temporary
+const tuple = validators => data => {
+  if (!Array.isArray(data)) {
+    return E.left([ER.typeError('Tuple', data)])
+  }
+
+  const { length } = validators
+
+  const lengthValidated = literal(length)(data.length)
+
+  if (E.isLeft(lengthValidated)) {
+    return E.left([
+      ER.containerError('Tuple', 1),
+      ER.fieldError('length'),
+      ...lengthValidated.data
+    ])
+  }
+
+  /** @type {Array<any>} */
+  const result = []
+
+  for (let i = 0; i < length; i += 1) {
+    const validated = validators[i](data[i])
+
+    if (E.isLeft(validated)) {
+      return E.left([
+        ER.containerError('Tuple', 1),
+        ER.fieldError(String(i)),
+        ...validated.data,
+      ])
+    }
+
+    result.push(validated.data)
+  }
+
+  return E.right(result)
 }
 
 /** @type {<T extends string | boolean | number>(object: Record<string, T>) => Validator<T>} */
@@ -98,10 +158,7 @@ const union = validators => data => {
     const validated = validator(data)
 
     if (E.isRight(validated)) {
-      /** @type {any} */
-      const result = data
-
-      return E.right(result)
+      return E.right(validated.data)
     }
 
     results.push(validated.data)
@@ -115,7 +172,7 @@ const union = validators => data => {
 }
 
 /** @type {<P extends PropType, K extends string, T>(type: P, key: K, validator: Validator<T>) => Validator<PropToObject<P, K, T>>} */
-// @ts-ignore necessary
+// @ts-ignore temporary
 const prop = (type, key, validator) => data => {
   if (typeof data !== 'object' || data === null || Array.isArray(data)) {
     return E.left([ER.typeError('object', data)])
@@ -129,7 +186,7 @@ const prop = (type, key, validator) => data => {
 
   if (!(key in record)) {
     if (type === 'optional') {
-      return E.right(data)
+      return E.right({})
     }
 
     return E.left([
@@ -177,6 +234,7 @@ module.exports = {
   literal,
   number,
   string,
+  tuple,
   undef,
   union,
   array,
