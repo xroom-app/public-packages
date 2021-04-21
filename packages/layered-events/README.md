@@ -1,5 +1,7 @@
 # Event system with layers
 
+## This package is deprecated and will be deleted soon
+
 ## Installation
 
 Run from command line

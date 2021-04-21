@@ -1,6 +1,6 @@
 {
     "name": "@xroom.app/layered-events",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Event system with layers",
     "author": "awerlogus",
     "license": "MIT",

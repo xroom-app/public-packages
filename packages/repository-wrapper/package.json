@@ -1,6 +1,6 @@
 {
     "name": "@xroom.app/repository-wrapper",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Wrapper synchronizing repository mutations",
     "author": "awerlogus",
     "license": "MIT",

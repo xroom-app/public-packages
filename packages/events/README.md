@@ -1,5 +1,9 @@
 # Wrapper over standard nodejs events
 
+## This package is deprecated and will be deleted soon
+
+Use [events2](https://github.com/xroom-app/public-packages/tree/master/packages/events2) package instead
+
 ## Installation
 
 Run from command line
