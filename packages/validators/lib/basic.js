@@ -10,13 +10,17 @@ const ER = require('./errors')
 
 /** @typedef {import('./errors').ValidateError} ValidateError */
 
+/** @typedef {import('@xroom.app/data-types/lib/json').Json} Json */
+
+/** @template T @typedef {import('@xroom.app/data-types/lib/option').Option<T>} Option */
+
 /** @template L, R @typedef {import('@xroom.app/data-types/lib/either').Either<L, R>} Either */
 
 // MODULE Declarations
 
 /** @typedef {'optional' | 'required'} PropType */
 
-/** @template T @typedef {ValidatorExtension<unknown, T>} Validator */
+/** @template T @typedef {ValidatorExtension<Option<Json>, T>} Validator */
 
 /** @template T @typedef {Either<ReadonlyArray<ValidateError>, T>} ValidationResult */
 
@@ -175,13 +179,13 @@ const union = validators => data => {
 // @ts-ignore temporary
 const prop = (type, key, validator) => data => {
   if (typeof data !== 'object' || data === null || Array.isArray(data)) {
-    return E.left([ER.typeError('object', data)])
+    return E.left([ER.typeError('Object', data)])
   }
 
   /** @type {Record<string, any>} */
   const record = data
 
-  /** @type {unknown} */
+  /** @type {Option<Json>} */
   const p = record[key]
 
   if (!(key in record)) {
@@ -199,6 +203,7 @@ const prop = (type, key, validator) => data => {
 
   if (E.isLeft(validated)) {
     return E.left([
+      ER.containerError('Object', 1),
       ER.fieldError(key),
       ...validated.data
     ])

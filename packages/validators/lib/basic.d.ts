@@ -1,4 +1,6 @@
 import { Either } from '@xroom.app/data-types/lib/either'
+import { Option } from '@xroom.app/data-types/lib/option'
+import { Json } from '@xroom.app/data-types/lib/json'
 import { ValidateError } from './errors'
 import { Tuple } from './util'
 
@@ -8,7 +10,7 @@ import { Tuple } from './util'
 type PropType = 'optional' | 'required'
 
 /** Standard unknown value validator */
-export type Validator<T> = ValidatorExtension<unknown, T>
+export type Validator<T> = ValidatorExtension<Option<Json>, T>
 
 /** Result of validation - array of errors or value of type T */
 export type ValidationResult<T> = Either<ReadonlyArray<ValidateError>, T>

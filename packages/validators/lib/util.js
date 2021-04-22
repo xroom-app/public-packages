@@ -1,13 +1,21 @@
 // SECTION Types
 
+// MODULE Imports
+
+/** @typedef {import('@xroom.app/data-types/lib/json').Json} Json */
+
+/** @template T @typedef {import('@xroom.app/data-types/lib/option').Option<T>} Option */
+
+// MODULE Declarations
+
 /** @template T @typedef {(ReadonlyArray<T> & { readonly 0: T }) | readonly []} Tuple */
 
 // SECTION Library
 
-/** @type {<V extends unknown, T>(value: V, template: T) => value is V & T} */
+/** @type {<T extends string | number | boolean>(value: Option<Json>, template: T) => value is T} */
 const same = (value, template) => value === template
 
-/** @type {(data: unknown) => string} */
+/** @type {(data: Option<Json>) => string} */
 const getTypeOf = data => {
   const type = typeof data
 
@@ -17,7 +25,7 @@ const getTypeOf = data => {
 
   if (Array.isArray(data)) { return 'Array' }
 
-  return 'object'
+  return 'Object'
 }
 
 /** @type {(data: string | boolean | number) => string} */

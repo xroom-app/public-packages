@@ -49,7 +49,7 @@ describe('getTypeOf function', () => {
     expect(getTypeOf('1')).toBe('string')
     expect(getTypeOf(null)).toBe('null')
     expect(getTypeOf(undefined)).toBe('undefined')
-    expect(getTypeOf({ a: 0 })).toBe('object')
+    expect(getTypeOf({ a: 0 })).toBe('Object')
     expect(getTypeOf([0])).toBe('Array')
   })
 })

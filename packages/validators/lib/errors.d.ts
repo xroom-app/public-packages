@@ -1,3 +1,6 @@
+import { Option } from '@xroom.app/data-types/lib/option'
+import { Json } from '@xroom.app/data-types/lib/json'
+
 // SECTION Types
 
 /** Error represents case when something not found */
@@ -10,7 +13,7 @@ export type FieldError = { __tag: 'field', field: string }
 export type TypeError = { __tag: 'type', expected: string, got: string }
 
 /** Error represents case when some condition is not met */
-export type ConditionError = { __tag: 'condition', condition: string, value: unknown }
+export type ConditionError = { __tag: 'condition', condition: string, value: Option<Json> }
 
 /** Error represents case when there's something wrong in container */
 export type ContainerError = { __tag: 'container', container: string, dimensions: number }
@@ -27,10 +30,10 @@ export const notFound: ValidateError
 export const fieldError: (field: string) => ValidateError
 
 /** Builds TypeError instance for expected type and data passed */
-export const typeError: (expected: string, data: unknown) => ValidateError
+export const typeError: (expected: string, data: Option<Json>) => ValidateError
 
 /** Builds ConditionError for condition and value passed */
-export const conditionError: (condition: string, value: unknown) => ValidateError
+export const conditionError: (condition: string, value: Option<Json>) => ValidateError
 
 /** Builds ContainerError for container and dimensions passed */
 export const containerError: (container: string, dimensions: number) => ValidateError

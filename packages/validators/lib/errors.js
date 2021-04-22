@@ -2,15 +2,23 @@ const { getTypeOf } = require('./util')
 
 // SECTION Types
 
+// MODULE Imports
+
+/** @typedef {import('@xroom.app/data-types/lib/json').Json} Json */
+
+/** @template T @typedef {import('@xroom.app/data-types/lib/option').Option<T>} Option */
+
+// MODULE Declarations
+
 /** @typedef {{ __tag: 'not-found' }} NotFoundError */
 
 /** @typedef {{ __tag: 'field', field: string }} FieldError */
 
 /** @typedef {{ __tag: 'type', expected: string, got: string }} TypeError */
 
-/** @typedef {{ __tag: 'condition', condition: string, value: unknown }} ConditionError */
-
 /** @typedef {{ __tag: 'container', container: string, dimensions: number }} ContainerError */
+
+/** @typedef {{ __tag: 'condition', condition: string, value: Option<Json> }} ConditionError */
 
 /** @typedef {NotFoundError | TypeError | FieldError | ConditionError | ContainerError} ValidateError */
 
@@ -39,10 +47,10 @@ const notFound = { __tag: notFoundTag }
 /** @type {(field: string) => ValidateError} */
 const fieldError = field => ({ __tag: fieldTag, field })
 
-/** @type {(expected: string, data: unknown) => ValidateError} */
+/** @type {(expected: string, data: Option<Json>) => ValidateError} */
 const typeError = (expected, data) => ({ __tag: typeTag, expected, got: getTypeOf(data) })
 
-/** @type {(condition: string, value: unknown) => ValidateError} */
+/** @type {(condition: string, value: Option<Json>) => ValidateError} */
 const conditionError = (condition, value) => ({ __tag: conditionTag, condition, value })
 
 /** @type {(container: string, dimensions: number) => ValidateError} */

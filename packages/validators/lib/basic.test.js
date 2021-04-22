@@ -174,8 +174,8 @@ describe('union validator', () => {
 
 describe('prop validator', () => {
   it('should return type error if data is not object', () => {
-    expect(T.prop('required', 'foo', T.number)(0)).toMatchObject(E.left([ER.typeError('object', 0)]))
-    expect(T.prop('optional', 'foo', T.number)(0)).toMatchObject(E.left([ER.typeError('object', 0)]))
+    expect(T.prop('required', 'foo', T.number)(0)).toMatchObject(E.left([ER.typeError('Object', 0)]))
+    expect(T.prop('optional', 'foo', T.number)(0)).toMatchObject(E.left([ER.typeError('Object', 0)]))
   })
 
   it('should return empty object if object doesn\'t contain prop but validator is optional', () => {
@@ -191,11 +191,13 @@ describe('prop validator', () => {
 
   it('should return error if prop exists, but not matches validator', () => {
     expect(T.prop('required', 'foo', T.number)({ foo: '' })).toMatchObject(E.left([
+      ER.containerError('Object', 1),
       ER.fieldError('foo'),
       ER.typeError('number', '')
     ]))
 
     expect(T.prop('optional', 'foo', T.number)({ foo: '' })).toMatchObject(E.left([
+      ER.containerError('Object', 1),
       ER.fieldError('foo'),
       ER.typeError('number', '')
     ]))
@@ -220,9 +222,9 @@ describe('type validator', () => {
   })
 
   it('should return TypeError if non object passed', () => {
-    expect(validator(0)).toMatchObject(E.left([ER.typeError('object', 0)]))
-    expect(validator(null)).toMatchObject(E.left([ER.typeError('object', null)]))
-    expect(validator([0])).toMatchObject(E.left([ER.typeError('object', [0])]))
+    expect(validator(0)).toMatchObject(E.left([ER.typeError('Object', 0)]))
+    expect(validator(null)).toMatchObject(E.left([ER.typeError('Object', null)]))
+    expect(validator([0])).toMatchObject(E.left([ER.typeError('Object', [0])]))
   })
 
   it('should return NotFoundError if one of fields doesn\'t exist', () => {
@@ -234,6 +236,7 @@ describe('type validator', () => {
 
   it('should return TypeError if field type doesn\'t match', () => {
     expect(validator({ a: 0, b: 1 })).toMatchObject(E.left([
+      ER.containerError('Object', 1),
       ER.fieldError('b'),
       ER.typeError('string', 1)
     ]))
