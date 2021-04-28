@@ -2,9 +2,9 @@
 
 // MODULE Imports
 
-/** @template P, R @typedef {import('./function').Arrow<P, R>} Arrow */
-
 /** @template T @typedef {import('./function').Lazy<T>} Lazy */
+
+/** @template P, R @typedef {import('./function').Arrow<P, R>} Arrow */
 
 // MODULE Declarations
 
