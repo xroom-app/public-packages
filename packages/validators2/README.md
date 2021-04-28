@@ -157,7 +157,7 @@ const validateOptions = V => V.type([
 // MODULE Data validation
 
 const data = {
-  password: '1',
+  password: '',
   lock: false,
 }
 
