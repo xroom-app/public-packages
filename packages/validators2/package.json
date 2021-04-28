@@ -1,0 +1,33 @@
+{
+    "name": "@xroom.app/validators2",
+    "version": "1.0.0",
+    "description": "Data validators library",
+    "author": "awerlogus",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xroom-app/public-packages.git"
+    },
+    "bugs": {
+        "url": "https://github.com/xroom-app/public-packages/issues"
+    },
+    "homepage": "https://github.com/xroom-app/public-packages/tree/master/packages/validators/#readme",
+    "keywords": [
+        "nodejs",
+        "data",
+        "validators",
+        "validator",
+        "validation",
+        "xroom.app"
+    ],
+    "files": [
+        "lib/"
+    ],
+    "dependencies": {
+        "@xroom.app/data-types": "^1.1.6"
+    },
+    "devDependencies": {},
+    "publishConfig": {
+        "access": "public"
+    }
+}
