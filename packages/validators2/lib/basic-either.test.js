@@ -1,5 +1,5 @@
-const T = require('./basic-either').basicValidators$either
 const E = require('@xroom.app/data-types/lib/either')
+const T = require('./basic-either').basicValidators
 const ER = require('./errors')
 
 // SECTION Constants

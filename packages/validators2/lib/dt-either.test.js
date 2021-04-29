@@ -1,11 +1,11 @@
-const { chain, map } = require('./dt-either').validatorDataType$either
-const T = require('./basic-either').basicValidators$either
+const { chain, map } = require('./dt-either').validatorDataType
+const T = require('./basic-either').basicValidators
 const E = require('@xroom.app/data-types/lib/either')
 const ER = require('./errors')
 
 // SECTION Types
 
-/** @template T @typedef {import('./basic-either').ValidationResult$either<T>} EitherResult */
+/** @template T @typedef {import('./basic-either').ValidationResult<T>} EitherResult */
 
 // SECTION utils
 

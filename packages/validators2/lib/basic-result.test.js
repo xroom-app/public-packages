@@ -1,5 +1,5 @@
-const T = require('./basic-result').basicValidators$result
 const R = require('@xroom.app/data-types/lib/result')
+const T = require('./basic-result').basicValidators
 
 // SECTION Constants
 

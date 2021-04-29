@@ -1,7 +1,7 @@
 import { Option } from '@xroom.app/data-types/lib/option'
 import { Result } from '@xroom.app/data-types/lib/result'
-import { ValidationResult$either } from './basic-either'
 import { Json } from '@xroom.app/data-types/lib/json'
+import { ValidationResult } from './basic-either'
 import { Tuple } from './util'
 
 // SECTION Types
@@ -12,16 +12,16 @@ import { Tuple } from './util'
 type PropType = 'optional' | 'required'
 
 /** Possible validator types */
-export type ValidatorType = keyof ValidationResult<any>
+export type ValidatorType = keyof ValidationResults<any>
 
 /** Possible validator types with its results */
-type ValidationResult<T> = { result: Result<T>, either: ValidationResult$either<T> }
+type ValidationResults<T> = { result: Result<T>, either: ValidationResult<T> }
 
-/** Represents validator from type Json to type ValidationResult<R>[T] */
+/** Represents validator from type Json to type ValidationResults<R>[T] */
 export type Validator<T extends ValidatorType, R> = ValidatorExtension<T, Option<Json>, R>
 
-/** Represents validator from type P to type ValidationResult<R>[T] */
-export type ValidatorExtension<T extends ValidatorType, P, R> = (data: P) => ValidationResult<R>[T]
+/** Represents validator from type P to type ValidationResults<R>[T] */
+export type ValidatorExtension<T extends ValidatorType, P, R> = (data: P) => ValidationResults<R>[T]
 
 /** Converts information about property to object type */
 type PropToObject<P extends PropType, K extends string, T> = P extends 'optional' ? { [KEY in K]?: T } : { [KEY in K]: T }

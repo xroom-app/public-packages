@@ -13,42 +13,42 @@ npm i @xroom.app/validators2
 ### Define your own validators
 
 ```js
-const { basicValidators$result } = require('./lib/basic-result')
-const { basicValidators$either } = require('./lib/basic-either')
-const { validatorDataType$result } = require('./lib/dt-result')
-const { validatorDataType$either } = require('./lib/dt-either')
+const resultValidatorDataType = require('@xroom.app/validators2/lib/dt-result').validatorDataType
+const eitherValidatorDataType = require('@xroom.app/validators2/lib/dt-either').validatorDataType
+const resultBasicValidators = require('@xroom.app/validators2/lib/basic-result').basicValidators
+const eitherBasicValidators = require('@xroom.app/validators2/lib/basic-either').basicValidators
+const ER = require('@xroom.app/validators2/lib/errors')
 const E = require('@xroom.app/data-types/lib/either')
 const R = require('@xroom.app/data-types/lib/result')
-const ER = require('./lib/errors')
 
 // SECTION Types
 
 // MODULE Imports
 
-/** @typedef {import('./lib/basic-alg').ValidatorType} ValidatorType */
+/** @typedef {import('@xroom.app/validators2/lib/basic-alg').ValidatorType} ValidatorType */
 
-/** @template T @typedef {import('./lib/basic-alg').ValidationResult<T>} ValidationResult */
+/** @template T @typedef {import('@xroom.app/validators2/lib/basic-alg').ValidationResults<T>} ValidationResults */
 
-/** @template {ValidatorType} T, P @typedef {import('./lib/basic-alg').Validator<T, P>} Validator */
+/** @template {ValidatorType} T, P @typedef {import('@xroom.app/validators2/lib/basic-alg').Validator<T, P>} Validator */
 
-/** @template {ValidatorType} T @typedef {import('./lib/basic-alg').BasicValidators<T>} BasicValidators */
+/** @template {ValidatorType} T @typedef {import('@xroom.app/validators2/lib/basic-alg').BasicValidators<T>} BasicValidators */
 
-/** @template {ValidatorType} T @typedef {import('./lib/dt-alg').ValidatorDataType<T>} ValidatorDataType */
+/** @template {ValidatorType} T @typedef {import('@xroom.app/validators2/lib/dt-alg').ValidatorDataType<T>} ValidatorDataType */
 
-/** @template {ValidatorType} T, P, R @typedef {import('./lib/basic-alg').ValidatorExtension<T, P, R>} ValidatorExtension */
+/** @template {ValidatorType} T, P, R @typedef {import('@xroom.app/validators2/lib/basic-alg').ValidatorExtension<T, P, R>} ValidatorExtension */
 
 // MODULE Algebras
 
-/** @template {ValidatorType} T @typedef {{ nonEmpty: <P extends { length: number }>(data: P) => ValidationResult<P>[T] }} NonEmpty */
+/** @template {ValidatorType} T @typedef {{ nonEmpty: <P extends { length: number }>(data: P) => ValidationResults<P>[T] }} NonEmpty */
 
 /**
  * @template {ValidatorType} T @typedef {{ lengthMatches:
  *   (validator: ValidatorExtension<T, number, number>) =>
- *     <P extends { length: number }>(data: P) => ValidationResult<P>[T]
+ *     <P extends { length: number }>(data: P) => ValidationResults<P>[T]
  * }} LengthMatches
  */
 
-/** @template {ValidatorType} T @typedef {{ leq: (number: number) => <N extends number>(data: N) => ValidationResult<N>[T] }} Leq */
+/** @template {ValidatorType} T @typedef {{ leq: (number: number) => <N extends number>(data: N) => ValidationResults<N>[T] }} Leq */
 
 /**
  * @template {ValidatorType} T
@@ -122,11 +122,10 @@ const customValidators$result = {
 // MODULE Interpreters
 
 /** @type {ValidatorCombinators<'result'>} */
-const resultCombinators = { ...validatorDataType$result, ...basicValidators$result, ...customValidators$result }
+const resultCombinators = { ...resultValidatorDataType, ...resultBasicValidators, ...customValidators$result }
 
 /** @type {ValidatorCombinators<'either'>} */
-const eitherCombinators = { ...validatorDataType$either, ...basicValidators$either, ...customValidators$either }
-
+const eitherCombinators = { ...eitherValidatorDataType, ...eitherBasicValidators, ...customValidators$either }
 ```
 
 ### Combine your and bundled validators into models
@@ -180,5 +179,4 @@ const result2 = validateOptions(resultCombinators)(data)
 if (R.isErr(result2)) {
   console.log('Error by result2')
 }
-
 ```

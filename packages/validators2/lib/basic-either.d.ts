@@ -5,9 +5,9 @@ import { ValidateError } from './errors'
 // SECTION Types
 
 /** Represents result of either validator */
-export type ValidationResult$either<T> = Either<ReadonlyArray<ValidateError>, T>
+export type ValidationResult<T> = Either<ReadonlyArray<ValidateError>, T>
 
 // SECTION Constants
 
 /** All basic either validators */
-export const basicValidators$either: BasicValidators<'either'>
+export const basicValidators: BasicValidators<'either'>

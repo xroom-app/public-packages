@@ -1,6 +1,6 @@
-const { chain, map } = require('./dt-result').validatorDataType$result
-const T = require('./basic-result').basicValidators$result
+const { chain, map } = require('./dt-result').validatorDataType
 const R = require('@xroom.app/data-types/lib/result')
+const T = require('./basic-result').basicValidators
 
 // SECTION utils
 

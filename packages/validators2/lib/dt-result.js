@@ -24,8 +24,8 @@ const map = (validator, mapper) => F.flow(validator, R.map(mapper))
 const chain = (first, second) => F.flow(first, R.chain(second))
 
 /** @type {ValidatorDataType} */
-const validatorDataType$result = { map, chain }
+const validatorDataType = { map, chain }
 
 // SECTION Exports
 
-module.exports = { validatorDataType$result }
+module.exports = { validatorDataType }

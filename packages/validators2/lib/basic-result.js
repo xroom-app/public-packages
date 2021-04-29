@@ -5,11 +5,11 @@ const { same } = require('./util')
 
 // MODULE Imports
 
-/** @typedef {import('./basic-alg').BasicValidators<'result'>} BasicValidators$result */
+/** @typedef {import('./basic-alg').BasicValidators<'result'>} BasicValidators */
 
 // SECTION Interpreters
 
-/** @type {BasicValidators$result['enumeration']} */
+/** @type {BasicValidators['enumeration']} */
 const enumeration = object => data => {
   const values = Object.values(object)
 
@@ -22,22 +22,22 @@ const enumeration = object => data => {
   return R.err
 }
 
-/** @type {BasicValidators$result['nullVal']} */
+/** @type {BasicValidators['nullVal']} */
 const nullVal = data => data === null ? R.ok(null) : R.err
 
-/** @type {BasicValidators$result['boolean']} */
+/** @type {BasicValidators['boolean']} */
 const boolean = data => typeof data === 'boolean' ? R.ok(data) : R.err
 
-/** @type {BasicValidators$result['literal']} */
+/** @type {BasicValidators['literal']} */
 const literal = value => data => same(data, value) ? R.ok(data) : R.err
 
-/** @type {BasicValidators$result['number']} */
+/** @type {BasicValidators['number']} */
 const number = data => typeof data === 'number' ? R.ok(data) : R.err
 
-/** @type {BasicValidators$result['string']} */
+/** @type {BasicValidators['string']} */
 const string = data => typeof data === 'string' ? R.ok(data) : R.err
 
-/** @type {BasicValidators$result['tuple']} */
+/** @type {BasicValidators['tuple']} */
 // @ts-ignore temporary
 const tuple = validators => data => {
   if (!Array.isArray(data)) {
@@ -68,7 +68,7 @@ const tuple = validators => data => {
   return R.ok(result)
 }
 
-/** @type {BasicValidators$result['array']} */
+/** @type {BasicValidators['array']} */
 const array = validator => data => {
   if (!Array.isArray(data)) {
     return R.err
@@ -90,7 +90,7 @@ const array = validator => data => {
   return R.ok(result)
 }
 
-/** @type {BasicValidators$result['union']} */
+/** @type {BasicValidators['union']} */
 const union = validators => data => {
   for (const validator of validators) {
     const validated = validator(data)
@@ -103,10 +103,10 @@ const union = validators => data => {
   return R.err
 }
 
-/** @type {BasicValidators$result['undef']} */
+/** @type {BasicValidators['undef']} */
 const undef = data => data === undefined ? R.ok(undefined) : R.err
 
-/** @type {BasicValidators$result['prop']} */
+/** @type {BasicValidators['prop']} */
 // @ts-ignore temporary
 const prop = (type, key, validator) => data => {
   if (false
@@ -132,7 +132,7 @@ const prop = (type, key, validator) => data => {
   return R.ok({ [key]: result[0] })
 }
 
-/** @type {BasicValidators$result['type']} */
+/** @type {BasicValidators['type']} */
 const type = props => data => {
   /** @type {Array<Record<string, any>>}} */
   const result = []
@@ -150,8 +150,8 @@ const type = props => data => {
   return R.ok(Object.assign({}, ...result))
 }
 
-/** @type {BasicValidators$result} */
-const basicValidators$result = {
+/** @type {BasicValidators} */
+const basicValidators = {
   enumeration,
   boolean,
   literal,
@@ -168,4 +168,4 @@ const basicValidators$result = {
 
 // SECTION Exports
 
-module.exports = { basicValidators$result }
+module.exports = { basicValidators }

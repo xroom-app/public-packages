@@ -10,7 +10,7 @@ const ER = require('./errors')
 
 /** @typedef {import('@xroom.app/data-types/lib/json').Json} Json */
 
-/** @typedef {import('./basic-alg').BasicValidators<'either'>} BasicValidators$either */
+/** @typedef {import('./basic-alg').BasicValidators<'either'>} basicValidators */
 
 /** @template T @typedef {import('@xroom.app/data-types/lib/option').Option<T>} Option */
 
@@ -18,11 +18,11 @@ const ER = require('./errors')
 
 // MODULE Declarations
 
-/** @template T @typedef {Either<ReadonlyArray<ValidateError>, T>} ValidationResult$either */
+/** @template T @typedef {Either<ReadonlyArray<ValidateError>, T>} ValidationResult */
 
 // SECTION Interpreters
 
-/** @type {BasicValidators$either['enumeration']} */
+/** @type {basicValidators['enumeration']} */
 const enumeration = object => data => {
   const values = Object.values(object)
 
@@ -35,22 +35,22 @@ const enumeration = object => data => {
   return E.left([ER.conditionError(`exists in [${values}]`, data)])
 }
 
-/** @type {BasicValidators$either['nullVal']} */
+/** @type {basicValidators['nullVal']} */
 const nullVal = data => data === null ? E.right(null) : E.left([ER.typeError('null', data)])
 
-/** @type {BasicValidators$either['boolean']} */
+/** @type {basicValidators['boolean']} */
 const boolean = data => typeof data === 'boolean' ? E.right(data) : E.left([ER.typeError('boolean', data)])
 
-/** @type {BasicValidators$either['literal']} */
+/** @type {basicValidators['literal']} */
 const literal = value => data => same(data, value) ? E.right(data) : E.left([ER.conditionError(`equals ${literalToString(value)}`, data)])
 
-/** @type {BasicValidators$either['number']} */
+/** @type {basicValidators['number']} */
 const number = data => typeof data === 'number' ? E.right(data) : E.left([ER.typeError('number', data)])
 
-/** @type {BasicValidators$either['string']} */
+/** @type {basicValidators['string']} */
 const string = data => typeof data === 'string' ? E.right(data) : E.left([ER.typeError('string', data)])
 
-/** @type {BasicValidators$either['tuple']} */
+/** @type {basicValidators['tuple']} */
 // @ts-ignore temporary
 const tuple = validators => data => {
   if (!Array.isArray(data)) {
@@ -89,7 +89,7 @@ const tuple = validators => data => {
   return E.right(result)
 }
 
-/** @type {BasicValidators$either['array']} */
+/** @type {basicValidators['array']} */
 const array = validator => data => {
   if (!Array.isArray(data)) {
     return E.left([ER.typeError('Array', data)])
@@ -114,7 +114,7 @@ const array = validator => data => {
   return E.right(result)
 }
 
-/** @type {BasicValidators$either['union']} */
+/** @type {basicValidators['union']} */
 const union = validators => data => {
   /** @type {Array<ReadonlyArray<ValidateError>>} */
   const results = []
@@ -136,10 +136,10 @@ const union = validators => data => {
   return E.left([ER.containerError('Union', results.length), ...results.flat()])
 }
 
-/** @type {BasicValidators$either['undef']} */
+/** @type {basicValidators['undef']} */
 const undef = data => data === undefined ? E.right(undefined) : E.left([ER.typeError('undefined', data)])
 
-/** @type {BasicValidators$either['prop']} */
+/** @type {basicValidators['prop']} */
 // @ts-ignore temporary
 const prop = (type, key, validator) => data => {
   if (typeof data !== 'object' || data === null || Array.isArray(data)) {
@@ -177,7 +177,7 @@ const prop = (type, key, validator) => data => {
   return E.right({ [key]: validated.data })
 }
 
-/** @type {BasicValidators$either['type']} */
+/** @type {basicValidators['type']} */
 const type = props => data => {
   /** @type {Array<Record<string, any>>}} */
   const result = []
@@ -195,8 +195,8 @@ const type = props => data => {
   return E.right(Object.assign({}, ...result))
 }
 
-/** @type {BasicValidators$either} */
-const basicValidators$either = {
+/** @type {basicValidators} */
+const basicValidators = {
   enumeration,
   nullVal,
   boolean,
@@ -213,4 +213,4 @@ const basicValidators$either = {
 
 // SECTION Exports
 
-module.exports = { basicValidators$either }
+module.exports = { basicValidators }

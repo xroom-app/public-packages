@@ -15,8 +15,8 @@ const map = (validator, mapper) => data => E.map(validator(data), mapper)
 const chain = (first, second) => data => E.chain(first(data), second)
 
 /** @type {ValidatorDataType} */
-const validatorDataType$either = { map, chain }
+const validatorDataType = { map, chain }
 
 // SECTION Exports
 
-module.exports = { validatorDataType$either }
+module.exports = { validatorDataType }
