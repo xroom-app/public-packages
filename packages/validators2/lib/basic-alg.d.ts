@@ -15,7 +15,7 @@ type PropType = 'optional' | 'required'
 export type ValidatorType = keyof ValidationResults<any>
 
 /** Possible validator types with its results */
-type ValidationResults<T> = { result: Result<T>, either: ValidationResult<T> }
+export type ValidationResults<T> = { result: Result<T>, either: ValidationResult<T> }
 
 /** Represents validator from type Json to type ValidationResults<R>[T] */
 export type Validator<T extends ValidatorType, R> = ValidatorExtension<T, Option<Json>, R>

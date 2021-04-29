@@ -29,8 +29,6 @@ const R = require('@xroom.app/data-types/lib/result')
 
 /** @template T @typedef {import('@xroom.app/validators2/lib/basic-alg').ValidationResults<T>} ValidationResults */
 
-/** @template {ValidatorType} T, P @typedef {import('@xroom.app/validators2/lib/basic-alg').Validator<T, P>} Validator */
-
 /** @template {ValidatorType} T @typedef {import('@xroom.app/validators2/lib/basic-alg').BasicValidators<T>} BasicValidators */
 
 /** @template {ValidatorType} T @typedef {import('@xroom.app/validators2/lib/dt-alg').ValidatorDataType<T>} ValidatorDataType */
@@ -133,17 +131,10 @@ const eitherCombinators = { ...eitherValidatorDataType, ...eitherBasicValidators
 ```js
 // MODULE Data validators
 
-/** @type {<T extends ValidatorType>(V: ValidatorCombinators<T>) => Validator<T, string>} */
+/** @template {ValidatorType} T @param {ValidatorCombinators<T>} V */
 const validatePassword = V => V.chain(V.chain(V.string, V.nonEmpty), V.lengthMatches(V.leq(32)))
 
-/**
- * @typedef {{
- *   lock: boolean
- *   password?: string
- * }} Options
- */
-
-/** @type {<T extends ValidatorType>(V: ValidatorCombinators<T>) => Validator<T, Options>} */
+/** @template {ValidatorType} T @param {ValidatorCombinators<T>} V */
 const validateOptions = V => V.type([
   V.prop('required', 'lock', V.boolean),
   V.prop('optional', 'password', validatePassword(V)),
