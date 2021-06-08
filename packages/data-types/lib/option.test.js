@@ -76,3 +76,13 @@ describe('fromNullable function', () => {
     expect(O.fromNullable(0)).toBe(O.some(0))
   })
 })
+
+describe('fold function', () => {
+  it('should map value with first function on data is Some', () => {
+    expect(O.fold(add1, getZero)(O.some(0))).toBe(1)
+  })
+
+  it('should return default value on data is None', () => {
+    expect(O.fold(add1, getZero)(O.none)).toBe(0)
+  })
+})

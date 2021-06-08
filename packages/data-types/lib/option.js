@@ -42,6 +42,9 @@ const getOrElse = value => data => isSome(data) ? data : value()
 /** @type {<T>(value: T | null) => Option<T>} */
 const fromNullable = value => value !== null ? some(value) : none
 
+/** @type {<P, R, N>(onSome: Arrow<P, R>, onNone: Lazy<N>) => Arrow<Option<P>, R | N>} */
+const fold = (onSome, onNone) => data => isSome(data) ? onSome(data) : onNone()
+
 // SECTION Exports
 
-module.exports = { none, some, isNone, isSome, map, chain, getOrElse, fromNullable }
+module.exports = { none, some, isNone, isSome, map, chain, getOrElse, fromNullable, fold }

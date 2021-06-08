@@ -38,3 +38,6 @@ export const getOrElse: <T1>(value: Lazy<T1>) => <T2>(data: Option<T2>) => T1 | 
 
 /** Returns None if value passed is null */
 export const fromNullable: <T>(value: T | null) => Option<T>
+
+/** Maps option value with function if Some or returns default value */
+export const fold: <P, R, N>(onSome: Arrow<P, R>, onNone: Lazy<N>) => Arrow<Option<P>, R | N>
